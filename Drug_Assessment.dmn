@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="Definitions_1f5m3mw" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.10.0">
+  <decision id="Decision_DrugAssessment" name="Drug Assessment">
+    <decisionTable id="DecisionTable_0zm33le">
+      <input id="Input_1" label="Drug Name">
+        <inputExpression id="InputExpression_1" typeRef="string">
+          <text>drugName</text>
+        </inputExpression>
+        <inputValues id="UnaryTests_13phyt4">
+          <text>"Ibuprofen","Metoprolol","Atorvastatin","Xylometazolin","Rosuvastatin","Metformin","Contraceptin","Triptan","Paracetamol","Cetirizine"</text>
+        </inputValues>
+      </input>
+      <output id="Output_1" label="Drug Assessment" name="drugAssessment" typeRef="string">
+        <outputValues id="UnaryTests_1wxkl9q">
+          <text>"OTC","Prescription"</text>
+        </outputValues>
+      </output>
+      <rule id="DecisionRule_1bv4puy">
+        <inputEntry id="UnaryTests_0mvwsoc">
+          <text>"Ibuprofen"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_111545w">
+          <text>"OTC"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0cgjhxz">
+        <inputEntry id="UnaryTests_1tylgy9">
+          <text>"Xylometazolin"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0inehmd">
+          <text>"OTC"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_00rhy8g">
+        <inputEntry id="UnaryTests_0g65xpb">
+          <text>"Paracetamol"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0dsd52q">
+          <text>"OTC"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_08xjqi4">
+        <inputEntry id="UnaryTests_0wzdwxo">
+          <text>"Cetirizine"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_12ywqah">
+          <text>"OTC"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1cq87mf">
+        <inputEntry id="UnaryTests_0x86i8h">
+          <text>"Metoprolol"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1s9xnz0">
+          <text>"Prescription"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0t8jyy3">
+        <inputEntry id="UnaryTests_0f7ft6y">
+          <text>"Atorvastatin"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_1tazw2g">
+          <text>"Prescription"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_19yodsi">
+        <inputEntry id="UnaryTests_14w5cpe">
+          <text>"Rosuvastatin"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_124wi4x">
+          <text>"Prescription"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_1rs31cb">
+        <inputEntry id="UnaryTests_0qoxl62">
+          <text>"Metformin"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_051nogz">
+          <text>"Prescription"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0f6yv3k">
+        <inputEntry id="UnaryTests_1uhrhhj">
+          <text>"Contraceptin"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_16ejydh">
+          <text>"Prescription"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0yhzwk5">
+        <inputEntry id="UnaryTests_0wvd1gf">
+          <text>"Triptan"</text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_10xpj8z">
+          <text>"Prescription"</text>
+        </outputEntry>
+      </rule>
+      <rule id="DecisionRule_0un611q">
+        <inputEntry id="UnaryTests_0i2c872">
+          <text></text>
+        </inputEntry>
+        <outputEntry id="LiteralExpression_0945x3j">
+          <text></text>
+        </outputEntry>
+      </rule>
+    </decisionTable>
+  </decision>
+  <dmndi:DMNDI>
+    <dmndi:DMNDiagram>
+      <dmndi:DMNShape dmnElementRef="Decision_DrugAssessment">
+        <dc:Bounds height="80" width="180" x="450" y="200" />
+      </dmndi:DMNShape>
+    </dmndi:DMNDiagram>
+  </dmndi:DMNDI>
+</definitions>
