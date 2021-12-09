@@ -9,7 +9,10 @@ import OrderForm from "../components/OrderForm";
 function Order() {
   let [items, setItems] = useState([]);
   let [isLoading, setIsLoading] = useState(true);
-  let [order, setOrder] = useState({ firstname: "", lastname: "", email: "" });
+  let [order, setOrder] = useState({ email: "" });
+
+  const tenantId = "charlie";
+  const processId = "DrugOrderService";
 
   useEffect(function () {
     fetch(
@@ -40,7 +43,26 @@ function Order() {
   };
 
   const sendOrder = () => {
-    alert("TODO: request to send: " + JSON.stringify(order));
+    if (order.email) {
+      fetch('https://digibp.herokuapp.com/engine-rest/process-definition/key/' + processId + '/tenant-id/' + tenantId + '/submit-form', {
+        method: 'post',
+        headers: new Headers({ 'content-type': 'application/json' }),
+        body: JSON.stringify({
+          "variables": {
+            "drugName": { "value": order.drugName, "type": "String" },
+            "email": { "value": order.email, "type": "String" }
+          }
+        })
+      }).then(function (response) {
+        return response.json();
+      }).then(function (data) {
+        console.log(data);
+      }).catch(function () {
+        alert(
+          "There has been an error while connecting to Camunda. Please try again later."
+        );
+      });
+    }
   };
 
   return (

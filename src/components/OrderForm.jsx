@@ -7,18 +7,20 @@ function OrderForm({ order, orderUpdateHandler, sendOrderHandler }) {
                     To finalize your order, please provide your personal information below.
                 </div>
                 <h3 className="w-100 text-center"><strong>Personal Information</strong></h3>
-                <label className="fw-bold mt-2">Firstname:</label>
+                <label className="fw-bold mt-2 d-none">Firstname:</label>
                 <input type="text"
                     id="email-firstname"
                     className="form-control"
                     onChange={(e) => orderUpdateHandler("firstname", e.target.value)}
-                    value={order.firstname} />
-                <label className="fw-bold mt-2">Lastname:</label>
+                    value={order.firstname}
+                    className="d-none" />
+                <label className="fw-bold mt-2 d-none">Lastname:</label>
                 <input type="text"
                     id="email-lastname"
                     className="form-control"
                     onChange={(e) => orderUpdateHandler("lastname", e.target.value)}
-                    value={order.lastname} />
+                    value={order.lastname}
+                    className="d-none" />
                 <label className="fw-bold mt-2">Email:</label>
                 <input type="text"
                     id="email-field"
