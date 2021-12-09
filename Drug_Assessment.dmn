@@ -1,6 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" id="Definitions_1f5m3mw" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.10.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_1f5m3mw" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.10.0">
   <decision id="Decision_DrugAssessment" name="Drug Assessment">
+    <informationRequirement id="InformationRequirement_1rf0vdg">
+      <requiredInput href="#drugName" />
+    </informationRequirement>
     <decisionTable id="DecisionTable_0zm33le">
       <input id="Input_1" label="Drug Name">
         <inputExpression id="InputExpression_1" typeRef="string">
@@ -95,21 +98,22 @@
           <text>"Prescription"</text>
         </outputEntry>
       </rule>
-      <rule id="DecisionRule_0un611q">
-        <inputEntry id="UnaryTests_0i2c872">
-          <text></text>
-        </inputEntry>
-        <outputEntry id="LiteralExpression_0945x3j">
-          <text></text>
-        </outputEntry>
-      </rule>
     </decisionTable>
   </decision>
+  <inputData id="drugName" name="Drug Name" />
   <dmndi:DMNDI>
     <dmndi:DMNDiagram>
       <dmndi:DMNShape dmnElementRef="Decision_DrugAssessment">
-        <dc:Bounds height="80" width="180" x="450" y="200" />
+        <dc:Bounds height="80" width="180" x="330" y="80" />
       </dmndi:DMNShape>
+      <dmndi:DMNShape id="DMNShape_0xu87iq" dmnElementRef="drugName">
+        <dc:Bounds height="45" width="125" x="157" y="237" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_0zp3l42" dmnElementRef="InformationRequirement_1rf0vdg">
+        <di:waypoint x="220" y="237" />
+        <di:waypoint x="420" y="180" />
+        <di:waypoint x="420" y="160" />
+      </dmndi:DMNEdge>
     </dmndi:DMNDiagram>
   </dmndi:DMNDI>
 </definitions>

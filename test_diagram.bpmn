@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<bpmn:definitions xmlns:bpmn="http://www.omg.org/spec/BPMN/20100524/MODEL" xmlns:bpmndi="http://www.omg.org/spec/BPMN/20100524/DI" xmlns:dc="http://www.omg.org/spec/DD/20100524/DC" xmlns:camunda="http://camunda.org/schema/1.0/bpmn" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:di="http://www.omg.org/spec/DD/20100524/DI" xmlns:modeler="http://camunda.org/schema/modeler/1.0" id="Definitions_0zi01rv" targetNamespace="http://bpmn.io/schema/bpmn" exporter="Camunda Modeler" exporterVersion="4.10.0" modeler:executionPlatform="Camunda Platform" modeler:executionPlatformVersion="7.15.0">
+  <bpmn:process id="drugOrder" isExecutable="true">
+    <bpmn:startEvent id="StartEvent_1">
+      <bpmn:outgoing>Flow_1eyi72p</bpmn:outgoing>
+    </bpmn:startEvent>
+    <bpmn:sequenceFlow id="Flow_1eyi72p" sourceRef="StartEvent_1" targetRef="Activity_0ei1k7s" />
+    <bpmn:userTask id="Activity_0ei1k7s" name="Order Drug">
+      <bpmn:incoming>Flow_1eyi72p</bpmn:incoming>
+      <bpmn:outgoing>Flow_02xxywy</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:sequenceFlow id="Flow_02xxywy" sourceRef="Activity_0ei1k7s" targetRef="Activity_0x95l10" />
+    <bpmn:userTask id="Activity_1v92srh" name="Show Decision">
+      <bpmn:incoming>Flow_0x16nxa</bpmn:incoming>
+      <bpmn:outgoing>Flow_1dhg4bm</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:businessRuleTask id="Activity_0x95l10" name="Drug Assessment" camunda:resultVariable="typeDecision" camunda:decisionRef="Decision_DrugAssessment" camunda:mapDecisionResult="singleResult" camunda:decisionRefTenantId="charlie">
+      <bpmn:extensionElements>
+        <camunda:inputOutput>
+          <camunda:outputParameter name="drugAssessment">${typeDecision.drugAssessment}</camunda:outputParameter>
+        </camunda:inputOutput>
+      </bpmn:extensionElements>
+      <bpmn:incoming>Flow_02xxywy</bpmn:incoming>
+      <bpmn:outgoing>Flow_193ccif</bpmn:outgoing>
+    </bpmn:businessRuleTask>
+    <bpmn:endEvent id="Event_0ebnonf">
+      <bpmn:incoming>Flow_1dhg4bm</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_1dhg4bm" sourceRef="Activity_1v92srh" targetRef="Event_0ebnonf" />
+    <bpmn:exclusiveGateway id="Gateway_064bknv">
+      <bpmn:incoming>Flow_193ccif</bpmn:incoming>
+      <bpmn:outgoing>Flow_0x16nxa</bpmn:outgoing>
+      <bpmn:outgoing>Flow_0duajre</bpmn:outgoing>
+    </bpmn:exclusiveGateway>
+    <bpmn:sequenceFlow id="Flow_193ccif" sourceRef="Activity_0x95l10" targetRef="Gateway_064bknv" />
+    <bpmn:sequenceFlow id="Flow_0x16nxa" name="Prescription" sourceRef="Gateway_064bknv" targetRef="Activity_1v92srh">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${drugAssessment == "Prescription"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:sequenceFlow id="Flow_0duajre" name="OTC" sourceRef="Gateway_064bknv" targetRef="Activity_0d5sa13">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${drugAssessment == "OTC"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
+    <bpmn:userTask id="Activity_0d5sa13" name="Show Decision">
+      <bpmn:incoming>Flow_0duajre</bpmn:incoming>
+      <bpmn:outgoing>Flow_0atdqsx</bpmn:outgoing>
+    </bpmn:userTask>
+    <bpmn:endEvent id="Event_1tn8v97">
+      <bpmn:incoming>Flow_0atdqsx</bpmn:incoming>
+    </bpmn:endEvent>
+    <bpmn:sequenceFlow id="Flow_0atdqsx" sourceRef="Activity_0d5sa13" targetRef="Event_1tn8v97" />
+  </bpmn:process>
+  <bpmndi:BPMNDiagram id="BPMNDiagram_1">
+    <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="drugOrder">
+      <bpmndi:BPMNEdge id="Flow_1eyi72p_di" bpmnElement="Flow_1eyi72p">
+        <di:waypoint x="215" y="247" />
+        <di:waypoint x="270" y="247" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_02xxywy_di" bpmnElement="Flow_02xxywy">
+        <di:waypoint x="370" y="247" />
+        <di:waypoint x="430" y="247" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_193ccif_di" bpmnElement="Flow_193ccif">
+        <di:waypoint x="530" y="247" />
+        <di:waypoint x="595" y="247" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_1dhg4bm_di" bpmnElement="Flow_1dhg4bm">
+        <di:waypoint x="770" y="120" />
+        <di:waypoint x="832" y="120" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0x16nxa_di" bpmnElement="Flow_0x16nxa">
+        <di:waypoint x="620" y="222" />
+        <di:waypoint x="620" y="120" />
+        <di:waypoint x="670" y="120" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="620" y="183" width="59" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0duajre_di" bpmnElement="Flow_0duajre">
+        <di:waypoint x="620" y="272" />
+        <di:waypoint x="620" y="360" />
+        <di:waypoint x="670" y="360" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="623" y="293" width="24" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNEdge id="Flow_0atdqsx_di" bpmnElement="Flow_0atdqsx">
+        <di:waypoint x="770" y="360" />
+        <di:waypoint x="832" y="360" />
+      </bpmndi:BPMNEdge>
+      <bpmndi:BPMNShape id="_BPMNShape_StartEvent_2" bpmnElement="StartEvent_1">
+        <dc:Bounds x="179" y="229" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_1391hcf_di" bpmnElement="Activity_0ei1k7s">
+        <dc:Bounds x="270" y="207" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_09d1g2z_di" bpmnElement="Activity_0x95l10">
+        <dc:Bounds x="430" y="207" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Gateway_064bknv_di" bpmnElement="Gateway_064bknv" isMarkerVisible="true">
+        <dc:Bounds x="595" y="222" width="50" height="50" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0tl3xcs_di" bpmnElement="Activity_1v92srh">
+        <dc:Bounds x="670" y="80" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_0ebnonf_di" bpmnElement="Event_0ebnonf">
+        <dc:Bounds x="832" y="102" width="36" height="36" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Activity_0s7k57y_di" bpmnElement="Activity_0d5sa13">
+        <dc:Bounds x="670" y="320" width="100" height="80" />
+      </bpmndi:BPMNShape>
+      <bpmndi:BPMNShape id="Event_1tn8v97_di" bpmnElement="Event_1tn8v97">
+        <dc:Bounds x="832" y="342" width="36" height="36" />
+      </bpmndi:BPMNShape>
+    </bpmndi:BPMNPlane>
+  </bpmndi:BPMNDiagram>
+</bpmn:definitions>
