@@ -1,0 +1,25 @@
+#banner-bg {
+  background-image: url("../images/background.jpg");
+  background-size: cover;
+  min-height: 300px;
+}
+
+#main-content {
+  background-color: #fff;
+  margin-top: -125px;
+  border-top-left-radius: 8px;
+  border-top-right-radius: 8px;
+  box-shadow: rgba(0, 0, 0, 0.35) 0px 5px 15px;
+}
+
+.amount-input {
+  max-width: 60px;
+  text-align: center;
+  float: left;
+  margin: 0 8px;
+}
+
+.btn-more-amount,
+.btn-less-amount {
+  float: left;
+}
