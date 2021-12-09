@@ -1,0 +1,23 @@
+{
+  "schemaVersion": 2,
+  "components": [
+    {
+      "values": [
+        {
+          "label": "Yes",
+          "value": "No"
+        }
+      ],
+      "label": "Do you agree to wait",
+      "type": "select",
+      "id": "Field_0r3pmn5",
+      "key": "request",
+      "description": "Please select your answer",
+      "validate": {
+        "required": true
+      }
+    }
+  ],
+  "type": "default",
+  "id": "Form_0ys4zo2"
+}

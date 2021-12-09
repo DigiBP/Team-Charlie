@@ -1,0 +1,19 @@
+{
+  "schemaVersion": 2,
+  "components": [
+    {
+      "label": "Request prescritpion",
+      "type": "textfield",
+      "id": "Field_016a27z",
+      "key": "drugName",
+      "description": "Could you please provide us your prescription",
+      "validate": {
+        "required": true
+      }
+    }
+  ],
+  "type": "default",
+  "id": "Form_0omrgcn",
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.15"
+}

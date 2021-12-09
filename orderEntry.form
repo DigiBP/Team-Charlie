@@ -1,0 +1,29 @@
+{
+  "schemaVersion": 2,
+  "components": [
+    {
+      "label": "Ordered Drug",
+      "type": "textfield",
+      "id": "Field_016a27z",
+      "key": "drugName",
+      "description": "This should be automatically filled in",
+      "validate": {
+        "required": true
+      }
+    },
+    {
+      "label": "Email Address",
+      "type": "textfield",
+      "id": "Field_0mkodcs",
+      "key": "email",
+      "description": "Customer's Email Address",
+      "validate": {
+        "required": true
+      }
+    }
+  ],
+  "type": "default",
+  "id": "Form_0omrgcn",
+  "executionPlatform": "Camunda Platform",
+  "executionPlatformVersion": "7.15"
+}

@@ -1,0 +1,14 @@
+{
+  "schemaVersion": 2,
+  "components": [
+    {
+      "label": "Validate Prescription",
+      "type": "checkbox",
+      "id": "Field_0h9xd9g",
+      "key": "validateprescription",
+      "description": "Is the prescription valid"
+    }
+  ],
+  "type": "default",
+  "id": "Validateprescription"
+}
