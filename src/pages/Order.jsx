@@ -4,10 +4,12 @@ import { useEffect, useState } from "react";
 import Loader from "../components/Loader";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faClinicMedical } from '@fortawesome/free-solid-svg-icons'
+import OrderForm from "../components/OrderForm";
 
 function Order() {
   let [items, setItems] = useState([]);
   let [isLoading, setIsLoading] = useState(true);
+  let [order, setOrder] = useState({ firstname: "", lastname: "", email: "" });
 
   useEffect(function () {
     fetch(
@@ -31,25 +33,13 @@ function Order() {
       });
   }, []);
 
-  const updateOrderAmountHandler = (orderItemIndex, val) => {
-    let itemsCpy = JSON.parse(JSON.stringify(items));
-    itemsCpy[orderItemIndex].fields.OrderAmount += val;
-    if (itemsCpy[orderItemIndex].fields.OrderAmount < 0) {
-      itemsCpy[orderItemIndex].fields.OrderAmount = 0;
-    }
-    setItems(itemsCpy);
+  const orderUpdateHandler = (field, value) => {
+    let orderCpy = JSON.parse(JSON.stringify(order));
+    orderCpy[field] = value;
+    setOrder(orderCpy);
   };
 
   const sendOrder = () => {
-    let order = [];
-    for (let i = 0; i < items.length; i++) {
-      if (items[i].fields.OrderAmount > 0) {
-        order.push({
-          drug: items[i].fields.Name,
-          amount: items[i].fields.OrderAmount,
-        });
-      }
-    }
     alert("TODO: request to send: " + JSON.stringify(order));
   };
 
@@ -58,32 +48,28 @@ function Order() {
       <div id="banner-bg"></div>
       <div id="main-content" className="container p-3">
         <h1 className="display-4 text-center">
-        <FontAwesomeIcon icon={faClinicMedical} /> Digital Pharmacy <FontAwesomeIcon icon={faClinicMedical} /> 
+          <FontAwesomeIcon icon={faClinicMedical} /> Digital Pharmacy <FontAwesomeIcon icon={faClinicMedical} />
         </h1>
 
         {isLoading ? (
           <Loader />
         ) : (
           <div>
-            <div className="row gx-4 mt-4">
-              {items.map((item, index) => {
-                return (
-                  <OrderItem
-                    key={index}
-                    index={index}
-                    orderItem={item}
-                    updateOrderAmountHandler={updateOrderAmountHandler}
-                  />
-                );
-              })}
-            </div>
-            <button
-              id="send-button"
-              className="btn btn-primary mt-3 w-100"
-              onClick={() => sendOrder()}
-            >
-              Submit
-            </button>{" "}
+            {!order || !order.drugName ?
+              <div className="row gx-4 mt-4">
+                {items.map((item, index) => {
+                  return (
+                    <OrderItem
+                      key={index}
+                      orderItem={item}
+                      orderUpdateHandler={orderUpdateHandler}
+                    />
+                  );
+                })}
+              </div>
+              :
+              <OrderForm order={order} orderUpdateHandler={orderUpdateHandler} sendOrderHandler={sendOrder} />
+            }
           </div>
         )}
       </div>
