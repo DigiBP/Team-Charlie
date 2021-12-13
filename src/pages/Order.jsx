@@ -9,6 +9,7 @@ import OrderForm from "../components/OrderForm";
 function Order() {
   let [items, setItems] = useState([]);
   let [isLoading, setIsLoading] = useState(true);
+  let [alert, setAlert] = useState({});
   let [order, setOrder] = useState({ email: "" });
 
   const tenantId = "charlie";
@@ -29,9 +30,7 @@ function Order() {
         setIsLoading(false);
       })
       .catch(function () {
-        alert(
-          "There has been an error while connecting airtable. Please try again later."
-        );
+        setAlert({ "success": false, "message": <span>There has been an error while connecting airtable. Please try again later.</span> });
         setIsLoading(false);
       });
   }, []);
@@ -39,11 +38,15 @@ function Order() {
   const orderUpdateHandler = (field, value) => {
     let orderCpy = JSON.parse(JSON.stringify(order));
     orderCpy[field] = value;
+    if (orderCpy.drugName) {
+      setAlert({ "success": true, "message": <span>Your selection was successful (1x {orderCpy.drugName}). To finalize your order, please provide your personal information below.</span> });
+    }
     setOrder(orderCpy);
   };
 
   const sendOrder = () => {
     if (order.email) {
+      setIsLoading(true);
       fetch('https://digibp.herokuapp.com/engine-rest/process-definition/key/' + processId + '/tenant-id/' + tenantId + '/submit-form', {
         method: 'post',
         headers: new Headers({ 'content-type': 'application/json' }),
@@ -56,11 +59,13 @@ function Order() {
       }).then(function (response) {
         return response.json();
       }).then(function (data) {
+        setAlert({ "success": true, "message": <span>Your order was successful! We will shortly reach out to you.</span> });
+        setOrder({ email: "" });
         console.log(data);
+        setIsLoading(false);
       }).catch(function () {
-        alert(
-          "There has been an error while connecting to Camunda. Please try again later."
-        );
+        setAlert({ "success": false, "message": <span>There has been an error while connecting to Camunda. Please try again later.</span> });
+        setIsLoading(false);
       });
     }
   };
@@ -77,6 +82,11 @@ function Order() {
           <Loader />
         ) : (
           <div>
+            {alert && alert.message ?
+              <div className={"mt-4 offset-md-3 col-md-6 alert " + (alert.success ? "alert-success" : "alert-danger")} role="alert">
+                {alert.message}
+              </div>
+              : null}
             {!order || !order.drugName ?
               <div className="row gx-4 mt-4">
                 {items.map((item, index) => {

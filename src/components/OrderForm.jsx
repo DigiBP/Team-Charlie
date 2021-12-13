@@ -1,11 +1,7 @@
 function OrderForm({ order, orderUpdateHandler, sendOrderHandler }) {
     return (
         <div className="row">
-            <div className="order-form offset-md-3 col-md-6 pt-4 mt-4 mb-4">
-                <div class="alert alert-success" role="alert">
-                    Your selection was successful (1x {order.drugName}).
-                    To finalize your order, please provide your personal information below.
-                </div>
+            <div className="order-form offset-md-3 col-md-6 mt-1 mb-4">
                 <h3 className="w-100 text-center"><strong>Personal Information</strong></h3>
                 <label className="fw-bold mt-2 d-none">Firstname:</label>
                 <input type="text"
