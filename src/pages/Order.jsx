@@ -10,7 +10,8 @@ function Order() {
   let [items, setItems] = useState([]);
   let [isLoading, setIsLoading] = useState(true);
   let [alert, setAlert] = useState({});
-  let [order, setOrder] = useState({ email: "" });
+  const defaultPersonalInfo = {firstname: "", lastname: "", email: "", street: "", place: "" }
+  let [order, setOrder] = useState(defaultPersonalInfo);
 
   const tenantId = "charlie";
   const processId = "DrugOrderService";
@@ -45,7 +46,7 @@ function Order() {
   };
 
   const sendOrder = () => {
-    if (order.email) {
+    if (order.firstname && order.lastname && order.email && order.street && order.place) {
       setIsLoading(true);
       fetch('https://digibp.herokuapp.com/engine-rest/process-definition/key/' + processId + '/tenant-id/' + tenantId + '/submit-form', {
         method: 'post',
@@ -59,16 +60,42 @@ function Order() {
       }).then(function (response) {
         return response.json();
       }).then(function (data) {
-        setAlert({ "success": true, "message": <span>Your order was successful! We will shortly reach out to you.</span> });
-        setOrder({ email: "" });
-        console.log(data);
-        setIsLoading(false);
+        getAndCompleteCamundaTask(data.id);
       }).catch(function () {
-        setAlert({ "success": false, "message": <span>There has been an error while connecting to Camunda. Please try again later.</span> });
-        setIsLoading(false);
+        showError();
       });
     }
   };
+
+  const getAndCompleteCamundaTask = (processInstanceId) => {
+    fetch('https://digibp.herokuapp.com/engine-rest/task/?processInstanceId=' + processInstanceId, { 
+      headers: new Headers({ 'content-type': 'application/json'})
+    }).then(function (response) {
+      return response.json();
+    }).then(function (data) {
+      if(data && data.length >= 1) {
+        fetch('https://digibp.herokuapp.com/engine-rest/task/' + data[0].id + '/complete', { 
+          method: 'post',
+          headers: new Headers({ 'content-type': 'application/json'})
+        }).then(function () {
+          setAlert({ "success": true, "message": <span>Your order was successful! We will shortly reach out to you.</span> });
+          setOrder(defaultPersonalInfo);
+          setIsLoading(false);
+        }).catch(function () {
+          showError();
+        });
+      } else {
+        showError();
+      } 
+    }).catch(function () {
+      showError();
+    });         
+  }
+
+  const showError = () => {
+    setAlert({ "error": false, "message": <span>There has been an error while connecting to Camunda. Please try again later.</span> });
+    setIsLoading(false);
+  }
 
   return (
     <div className="">
