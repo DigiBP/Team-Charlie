@@ -1,9 +1,12 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_1f5m3mw" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.10.0">
+<definitions xmlns="https://www.omg.org/spec/DMN/20191111/MODEL/" xmlns:dmndi="https://www.omg.org/spec/DMN/20191111/DMNDI/" xmlns:dc="http://www.omg.org/spec/DMN/20180521/DC/" xmlns:di="http://www.omg.org/spec/DMN/20180521/DI/" id="Definitions_1f5m3mw" name="DRD" namespace="http://camunda.org/schema/1.0/dmn" exporter="Camunda Modeler" exporterVersion="4.11.1">
   <decision id="Decision_DrugAssessment" name="Drug Assessment">
     <informationRequirement id="InformationRequirement_1rf0vdg">
       <requiredInput href="#drugName" />
     </informationRequirement>
+    <knowledgeRequirement id="KnowledgeRequirement_00dw9u4">
+      <requiredKnowledge href="#BusinessKnowledgeModel_1hqn20p" />
+    </knowledgeRequirement>
     <decisionTable id="DecisionTable_0zm33le">
       <input id="Input_1" label="Drug Name">
         <inputExpression id="InputExpression_1" typeRef="string">
@@ -19,6 +22,7 @@
         </outputValues>
       </output>
       <rule id="DecisionRule_1bv4puy">
+        <description>Over the counter, doesn't need prescription.</description>
         <inputEntry id="UnaryTests_0mvwsoc">
           <text>"Ibuprofen"</text>
         </inputEntry>
@@ -27,6 +31,7 @@
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0cgjhxz">
+        <description>Over the counter, doesn't need prescription.</description>
         <inputEntry id="UnaryTests_1tylgy9">
           <text>"Xylometazolin"</text>
         </inputEntry>
@@ -35,6 +40,7 @@
         </outputEntry>
       </rule>
       <rule id="DecisionRule_00rhy8g">
+        <description>Over the counter, doesn't need prescription.</description>
         <inputEntry id="UnaryTests_0g65xpb">
           <text>"Paracetamol"</text>
         </inputEntry>
@@ -43,6 +49,7 @@
         </outputEntry>
       </rule>
       <rule id="DecisionRule_08xjqi4">
+        <description>Over the counter, doesn't need prescription.</description>
         <inputEntry id="UnaryTests_0wzdwxo">
           <text>"Cetirizine"</text>
         </inputEntry>
@@ -51,6 +58,7 @@
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1cq87mf">
+        <description>Prescription needed, request to customer.</description>
         <inputEntry id="UnaryTests_0x86i8h">
           <text>"Metoprolol"</text>
         </inputEntry>
@@ -59,6 +67,7 @@
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0t8jyy3">
+        <description>Prescription needed, request to customer.</description>
         <inputEntry id="UnaryTests_0f7ft6y">
           <text>"Atorvastatin"</text>
         </inputEntry>
@@ -67,6 +76,7 @@
         </outputEntry>
       </rule>
       <rule id="DecisionRule_19yodsi">
+        <description>Prescription needed, request to customer.</description>
         <inputEntry id="UnaryTests_14w5cpe">
           <text>"Rosuvastatin"</text>
         </inputEntry>
@@ -75,6 +85,7 @@
         </outputEntry>
       </rule>
       <rule id="DecisionRule_1rs31cb">
+        <description>Prescription needed, request to customer.</description>
         <inputEntry id="UnaryTests_0qoxl62">
           <text>"Metformin"</text>
         </inputEntry>
@@ -83,6 +94,7 @@
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0f6yv3k">
+        <description>Prescription needed, request to customer.</description>
         <inputEntry id="UnaryTests_1uhrhhj">
           <text>"Contraceptin"</text>
         </inputEntry>
@@ -91,6 +103,7 @@
         </outputEntry>
       </rule>
       <rule id="DecisionRule_0yhzwk5">
+        <description>Prescription needed, request to customer.</description>
         <inputEntry id="UnaryTests_0wvd1gf">
           <text>"Triptan"</text>
         </inputEntry>
@@ -101,18 +114,25 @@
     </decisionTable>
   </decision>
   <inputData id="drugName" name="Drug Name" />
+  <businessKnowledgeModel id="BusinessKnowledgeModel_1hqn20p" name="Drug Assessment" />
   <dmndi:DMNDI>
     <dmndi:DMNDiagram>
       <dmndi:DMNShape dmnElementRef="Decision_DrugAssessment">
-        <dc:Bounds height="80" width="180" x="330" y="80" />
+        <dc:Bounds height="80" width="180" x="280" y="80" />
       </dmndi:DMNShape>
       <dmndi:DMNShape id="DMNShape_0xu87iq" dmnElementRef="drugName">
-        <dc:Bounds height="45" width="125" x="157" y="237" />
+        <dc:Bounds height="45" width="125" x="157" y="227" />
       </dmndi:DMNShape>
       <dmndi:DMNEdge id="DMNEdge_0zp3l42" dmnElementRef="InformationRequirement_1rf0vdg">
-        <di:waypoint x="220" y="237" />
-        <di:waypoint x="420" y="180" />
-        <di:waypoint x="420" y="160" />
+        <di:waypoint x="220" y="227" />
+        <di:waypoint x="370" y="160" />
+      </dmndi:DMNEdge>
+      <dmndi:DMNShape id="DMNShape_15gf19j" dmnElementRef="BusinessKnowledgeModel_1hqn20p">
+        <dc:Bounds height="46" width="135" x="502" y="227" />
+      </dmndi:DMNShape>
+      <dmndi:DMNEdge id="DMNEdge_1x3ccat" dmnElementRef="KnowledgeRequirement_00dw9u4">
+        <di:waypoint x="526" y="227" />
+        <di:waypoint x="399" y="160" />
       </dmndi:DMNEdge>
     </dmndi:DMNDiagram>
   </dmndi:DMNDI>
