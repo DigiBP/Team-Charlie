@@ -75,7 +75,7 @@
       <bpmn:incoming>Flow_08akl27</bpmn:incoming>
       <bpmn:terminateEventDefinition id="TerminateEventDefinition_04562uw" />
     </bpmn:endEvent>
-    <bpmn:serviceTask id="Activity_0grp9uk" name="Confirm &#38; Request Prescription" camunda:expression="${true}">
+    <bpmn:serviceTask id="Activity_0grp9uk" name="Confirm &#38; Request Prescription" camunda:type="external" camunda:topic="requestPrescription">
       <bpmn:incoming>Flow_1syzmuq</bpmn:incoming>
       <bpmn:outgoing>Flow_1mzrz2n</bpmn:outgoing>
     </bpmn:serviceTask>
