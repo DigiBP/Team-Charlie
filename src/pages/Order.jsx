@@ -3,7 +3,7 @@ import OrderItem from "../components/OrderItem";
 import { useEffect, useState } from "react";
 import Loader from "../components/Loader";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faClinicMedical } from '@fortawesome/free-solid-svg-icons'
+import { faClinicMedical, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons'
 import OrderForm from "../components/OrderForm";
 
 function Order() {
@@ -17,20 +17,13 @@ function Order() {
   const processId = "DrugOrderService";
 
   useEffect(function () {
-    fetch(
-      "https://api.airtable.com/v0/appqK2pLyymq6q5If/Drug?api_key=keyd1QZAa1OCVYSgU"
-    )
-      .then(function (response) {
+    fetch("https://api.airtable.com/v0/appqK2pLyymq6q5If/Drug?api_key=keyd1QZAa1OCVYSgU"
+    ).then(function (response) {
         return response.json();
-      })
-      .then(function (data) {
-        for (let i = 0; i < data.records.length; i++) {
-          data.records[i].fields["OrderAmount"] = 0;
-        }
+    }).then(function (data) {
         setItems(data.records);
         setIsLoading(false);
-      })
-      .catch(function () {
+    }).catch(function () {
         setAlert({ "success": false, "message": <span>There has been an error while connecting airtable. Please try again later.</span> });
         setIsLoading(false);
       });
@@ -120,6 +113,7 @@ function Order() {
               : null}
             {!order || !order.drugName ?
               <div className="row gx-4 mt-4">
+                <div className="w-100 text-center mb-2 mt-2 fw-bold h5"><FontAwesomeIcon className="text-warning" icon={faExclamationTriangle} /> = needs prescription</div>
                 {items.map((item, index) => {
                   return (
                     <OrderItem
