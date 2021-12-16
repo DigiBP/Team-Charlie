@@ -15,6 +15,12 @@
       "key": "drugName"
     },
     {
+      "label": "Drug ID",
+      "type": "textfield",
+      "id": "Field_0p58bwg",
+      "key": "drugId"
+    },
+    {
       "label": "First Name",
       "type": "textfield",
       "id": "Field_0necpzf",

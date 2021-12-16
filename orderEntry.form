@@ -12,6 +12,12 @@
       }
     },
     {
+      "label": "Drug ID",
+      "type": "textfield",
+      "id": "Field_1j1gya0",
+      "key": "drugId"
+    },
+    {
       "label": "Email Address",
       "type": "textfield",
       "id": "Field_0mkodcs",
