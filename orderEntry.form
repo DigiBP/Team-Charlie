@@ -20,6 +20,33 @@
       "validate": {
         "required": true
       }
+    },
+    {
+      "label": "First Name",
+      "type": "textfield",
+      "id": "Field_1hg1ecu",
+      "key": "firstname",
+      "description": "Please enter your name"
+    },
+    {
+      "label": "Last Name",
+      "type": "textfield",
+      "id": "Field_16hm2m0",
+      "key": "lastname",
+      "description": "Please enter your last name"
+    },
+    {
+      "label": "Street adress",
+      "type": "textfield",
+      "id": "Field_12cyun3",
+      "key": "street",
+      "description": "Your street"
+    },
+    {
+      "label": "ZIP/Place",
+      "type": "textfield",
+      "id": "Field_12tjae7",
+      "key": "place"
     }
   ],
   "type": "default",
