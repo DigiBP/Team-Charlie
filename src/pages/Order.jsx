@@ -54,7 +54,11 @@ function Order() {
         body: JSON.stringify({
           "variables": {
             "drugName": { "value": order.drugName, "type": "String" },
-            "email": { "value": order.email, "type": "String" }
+            "firstname": { "value": order.email, "type": "String" },
+            "lastname": { "value": order.email, "type": "String" },
+            "email": { "value": order.email, "type": "String" },
+            "street": { "value": order.street, "type": "String" },
+            "place": { "value": order.place, "type": "String" }
           }
         })
       }).then(function (response) {
