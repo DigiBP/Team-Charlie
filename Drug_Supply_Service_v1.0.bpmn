@@ -73,7 +73,7 @@
     <bpmn:startEvent id="StartEvent_1" name="Drug Order received">
       <bpmn:outgoing>Flow_0fuxlkm</bpmn:outgoing>
     </bpmn:startEvent>
-    <bpmn:serviceTask id="Activity_1vj4noy" name="Update storage" camunda:expression="${true}">
+    <bpmn:serviceTask id="Activity_1vj4noy" name="Update storage" camunda:type="external" camunda:topic="updateStorage">
       <bpmn:incoming>Flow_1pj15dn</bpmn:incoming>
       <bpmn:outgoing>Flow_14mloor</bpmn:outgoing>
     </bpmn:serviceTask>
