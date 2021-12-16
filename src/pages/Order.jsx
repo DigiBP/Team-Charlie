@@ -10,7 +10,7 @@ function Order() {
   let [items, setItems] = useState([]);
   let [isLoading, setIsLoading] = useState(true);
   let [alert, setAlert] = useState({});
-  const defaultPersonalInfo = {firstname: "", lastname: "", email: "", street: "", place: "" }
+  const defaultPersonalInfo = { firstname: "", lastname: "", email: "", street: "", place: "" }
   let [order, setOrder] = useState(defaultPersonalInfo);
 
   const tenantId = "charlie";
@@ -19,21 +19,24 @@ function Order() {
   useEffect(function () {
     fetch("https://api.airtable.com/v0/appqK2pLyymq6q5If/Drug?api_key=keyd1QZAa1OCVYSgU"
     ).then(function (response) {
-        return response.json();
+      return response.json();
     }).then(function (data) {
-        setItems(data.records);
-        setIsLoading(false);
+      setItems(data.records);
+      setIsLoading(false);
     }).catch(function () {
-        setAlert({ "success": false, "message": <span>There has been an error while connecting airtable. Please try again later.</span> });
-        setIsLoading(false);
-      });
+      setAlert({ "success": false, "message": <span>There has been an error while connecting airtable. Please try again later.</span> });
+      setIsLoading(false);
+    });
   }, []);
 
-  const orderUpdateHandler = (field, value) => {
+  const orderUpdateHandler = (field, value, id) => {
     let orderCpy = JSON.parse(JSON.stringify(order));
     orderCpy[field] = value;
     if (orderCpy.drugName) {
       setAlert({ "success": true, "message": <span>Your selection was successful (1x {orderCpy.drugName}). To finalize your order, please provide your personal information below.</span> });
+    }
+    if (id) {
+      orderCpy["drugId"] = id;
     }
     setOrder(orderCpy);
   };
@@ -46,6 +49,7 @@ function Order() {
         headers: new Headers({ 'content-type': 'application/json' }),
         body: JSON.stringify({
           "variables": {
+            "drugId": { "value": order.drugId, "type": "String" },
             "drugName": { "value": order.drugName, "type": "String" },
             "firstname": { "value": order.email, "type": "String" },
             "lastname": { "value": order.email, "type": "String" },
@@ -65,15 +69,15 @@ function Order() {
   };
 
   const getAndCompleteCamundaTask = (processInstanceId) => {
-    fetch('https://digibp.herokuapp.com/engine-rest/task/?processInstanceId=' + processInstanceId, { 
-      headers: new Headers({ 'content-type': 'application/json'})
+    fetch('https://digibp.herokuapp.com/engine-rest/task/?processInstanceId=' + processInstanceId, {
+      headers: new Headers({ 'content-type': 'application/json' })
     }).then(function (response) {
       return response.json();
     }).then(function (data) {
-      if(data && data.length >= 1) {
-        fetch('https://digibp.herokuapp.com/engine-rest/task/' + data[0].id + '/complete', { 
+      if (data && data.length >= 1) {
+        fetch('https://digibp.herokuapp.com/engine-rest/task/' + data[0].id + '/complete', {
           method: 'post',
-          headers: new Headers({ 'content-type': 'application/json'})
+          headers: new Headers({ 'content-type': 'application/json' })
         }).then(function () {
           setAlert({ "success": true, "message": <span>Your order was successful! We will shortly reach out to you.</span> });
           setOrder(defaultPersonalInfo);
@@ -83,10 +87,10 @@ function Order() {
         });
       } else {
         showError();
-      } 
+      }
     }).catch(function () {
       showError();
-    });         
+    });
   }
 
   const showError = () => {

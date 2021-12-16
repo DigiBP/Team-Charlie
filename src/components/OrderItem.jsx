@@ -15,7 +15,7 @@ function OrderItem({ orderItem, orderUpdateHandler }) {
           {orderItem.fields.AmountInStock > 0 ?
             <button
               className="btn btn-outline-success"
-              onClick={() => orderUpdateHandler("drugName", orderItem.fields.Name)}
+              onClick={() => { orderUpdateHandler("drugName", orderItem.fields.Name, orderItem.id); }}
             >
               Order
             </button>
