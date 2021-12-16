@@ -1,0 +1,44 @@
+{
+  "schemaVersion": 2,
+  "components": [
+    {
+      "label": "Order ready",
+      "type": "checkbox",
+      "id": "Field_0aezumy",
+      "key": "field_1qgir6m",
+      "description": "Confirm order readiness"
+    },
+    {
+      "label": "Ordered drug",
+      "type": "textfield",
+      "id": "Field_0af1a7x",
+      "key": "drugName"
+    },
+    {
+      "label": "First Name",
+      "type": "textfield",
+      "id": "Field_0necpzf",
+      "key": "firstname"
+    },
+    {
+      "label": "Last Name",
+      "type": "textfield",
+      "id": "Field_0lc68ht",
+      "key": "lastname"
+    },
+    {
+      "label": "Street",
+      "type": "textfield",
+      "id": "Field_1rptfw3",
+      "key": "street"
+    },
+    {
+      "label": "ZIP/Place",
+      "type": "textfield",
+      "id": "Field_1mybnut",
+      "key": "place"
+    }
+  ],
+  "type": "default",
+  "id": "orderready"
+}
