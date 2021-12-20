@@ -50,7 +50,7 @@ After selecting the desired medications, some personal information will be requi
 ### *Camunda*
 The whole business process was described using BPML in the Camunda modeler. The customer will start the process by completing an order on the web page, as shown in the previous section.  
 
-![BPMN](pictures/BPMN.jpg)
+![BPMN](pictures/BPMN.png)
 
 Next, the order will be received by an employee of the pharmacy. At this stage, it is essential to know if the medication ordered is prescription based or over-the-counter. A DMN table has been implemented on the following drug assessment process step, in which all the drugs are annotated as prescription or over-the-counter, to verify if a prescription is needed or not. This way, the process can decide which way it will follow.  
 
@@ -86,7 +86,7 @@ The final step of the process is to send the final confirmation to the customer 
 ***
 
 ## Step by Step
-![BPMN](pictures/BPMN.jpg)
+![BPMN](pictures/BPMN.png)
 
 1. The customer orders medication using the Web Page:  
 	1. Web page is created Using HTML, React JS. 
