@@ -18,8 +18,8 @@
         <bpmn:flowNodeRef>Event_19ghdkr</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>StartEvent_1</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Event_16k1nr2</bpmn:flowNodeRef>
-        <bpmn:flowNodeRef>Activity_0grp9uk</bpmn:flowNodeRef>
         <bpmn:flowNodeRef>Gateway_1dp0pzu</bpmn:flowNodeRef>
+        <bpmn:flowNodeRef>Activity_0grp9uk</bpmn:flowNodeRef>
       </bpmn:lane>
       <bpmn:lane id="Lane_1ijajx0" name="Lager">
         <bpmn:flowNodeRef>Activity_1vj4noy</bpmn:flowNodeRef>
@@ -93,16 +93,18 @@
       <bpmn:outgoing>Flow_1syzmuq</bpmn:outgoing>
       <bpmn:outgoing>Flow_0qeslsy</bpmn:outgoing>
     </bpmn:inclusiveGateway>
-    <bpmn:sequenceFlow id="Flow_0qeslsy" name="OTC" sourceRef="Gateway_1urcfpw" targetRef="Gateway_1dp0pzu" />
-    <bpmn:serviceTask id="Activity_0grp9uk" name="Confirm &#38; Request Prescription" camunda:type="external" camunda:topic="requestPrescription">
-      <bpmn:incoming>Flow_1syzmuq</bpmn:incoming>
-      <bpmn:outgoing>Flow_1mzrz2n</bpmn:outgoing>
-    </bpmn:serviceTask>
+    <bpmn:sequenceFlow id="Flow_0qeslsy" name="OTC" sourceRef="Gateway_1urcfpw" targetRef="Gateway_1dp0pzu">
+      <bpmn:conditionExpression xsi:type="bpmn:tFormalExpression">${drugAssessment == "OTC"}</bpmn:conditionExpression>
+    </bpmn:sequenceFlow>
     <bpmn:inclusiveGateway id="Gateway_1dp0pzu">
       <bpmn:incoming>Flow_1j7hnnv</bpmn:incoming>
       <bpmn:incoming>Flow_0qeslsy</bpmn:incoming>
       <bpmn:outgoing>Flow_19nn2mk</bpmn:outgoing>
     </bpmn:inclusiveGateway>
+    <bpmn:serviceTask id="Activity_0grp9uk" name="Confirm &#38; Request Prescription" camunda:type="external" camunda:topic="requestPrescription">
+      <bpmn:incoming>Flow_1syzmuq</bpmn:incoming>
+      <bpmn:outgoing>Flow_1mzrz2n</bpmn:outgoing>
+    </bpmn:serviceTask>
   </bpmn:process>
   <bpmndi:BPMNDiagram id="BPMNDiagram_1">
     <bpmndi:BPMNPlane id="BPMNPlane_1" bpmnElement="Collaboration_0ekkm95">
@@ -118,6 +120,15 @@
       <bpmndi:BPMNShape id="Lane_0rul6ps_di" bpmnElement="Lane_0rul6ps" isHorizontal="true">
         <dc:Bounds x="190" y="170" width="1660" height="490" />
       </bpmndi:BPMNShape>
+      <bpmndi:BPMNEdge id="Flow_0qeslsy_di" bpmnElement="Flow_0qeslsy">
+        <di:waypoint x="630" y="465" />
+        <di:waypoint x="630" y="590" />
+        <di:waypoint x="1090" y="590" />
+        <di:waypoint x="1090" y="465" />
+        <bpmndi:BPMNLabel>
+          <dc:Bounds x="648" y="563" width="24" height="14" />
+        </bpmndi:BPMNLabel>
+      </bpmndi:BPMNEdge>
       <bpmndi:BPMNEdge id="Flow_1ejjkec_di" bpmnElement="Flow_1ejjkec">
         <di:waypoint x="1650" y="890" />
         <di:waypoint x="1752" y="890" />
@@ -173,15 +184,6 @@
       <bpmndi:BPMNEdge id="Flow_0foy8db_di" bpmnElement="Flow_0foy8db">
         <di:waypoint x="430" y="440" />
         <di:waypoint x="470" y="440" />
-      </bpmndi:BPMNEdge>
-      <bpmndi:BPMNEdge id="Flow_0qeslsy_di" bpmnElement="Flow_0qeslsy">
-        <di:waypoint x="630" y="465" />
-        <di:waypoint x="630" y="590" />
-        <di:waypoint x="1090" y="590" />
-        <di:waypoint x="1090" y="465" />
-        <bpmndi:BPMNLabel>
-          <dc:Bounds x="648" y="563" width="24" height="14" />
-        </bpmndi:BPMNLabel>
       </bpmndi:BPMNEdge>
       <bpmndi:BPMNShape id="Activity_0y4mdk9_di" bpmnElement="Activity_1lssg85">
         <dc:Bounds x="1170" y="690" width="100" height="80" />
