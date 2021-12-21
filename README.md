@@ -14,7 +14,7 @@ Hsaine El-Ali
 	1. [The Web Page](#the-web-page)
 	2. [Camunda](#camunda)
 	3. [Integromat](#integromat)
-	4. [Lager](#lager)
+	4. [Inventory](#inventory)
 	5. [Billing](#billing)
 3. [Step by Step](#step-by-step)
 ***
@@ -66,23 +66,23 @@ As mentioned previously, if the drug needs a prescription, then an email must be
 
 ![Integromat Pt1](pictures/Integromat_pt1.png)
 
-Integromat serves another important purpose. It periodically scans the mailbox of the digital pharmacy for any new emails containing PDF documents. It then stores them on Google drive and saves in Google Sheets the Name, Date, Medicine and Email. When the information is received, then it sends the notification to Camunda.  
+Integromat serves another important purpose. It periodically scans the mailbox of the digital pharmacy for any new emails containing PDF documents. It then stores them on Google drive. At the same time we are using Google Cloud Vision as an Optical Character Recognition (OCR) tool to extract the information from the prescription, including the patient name and the name of the drug ordered. Together with the information from the email such as the time sent and the email address, those information will be stored in AirTable.
 
 ![Integromat Pt2](pictures/Integromat_pt2.jpeg)
 
-When the customer has provided the prescription, Camunda will receive a request to be manually validated by an employee.  
+When the customer has provided the prescription, Camunda will receive a request to be manually validated by an employee (pharmacist).  
 
 ![Prescription Validation](pictures/Prescription_Validation.jpg)
 
 
-### *Lager*
-After receiving the prescription and manual confirmation, the process will be transferred to the Lager. The employee at the station will be requested to manually pack the order displayed to him and confirm its readiness.  
+### *Inventory*
+After receiving the prescription and manual confirmation, the process will be transferred to the inventory. The employee at the station will be requested to manually pack the order displayed to him and confirm its readiness.  
 
-When confirmed, the process will once again redirect to Intregromat to updates the stock in the AirTables.
+When confirmed, the process will once again redirect to Intregromat to updates the stock in AirTable.
 
 
 ### *Billing*
-The final step of the process is to send the final confirmation to the customer that includes the bill. This step is done via Integromat, which sends an email to the customer's email address.  
+The final step of the process is to send the final order confirmation to the customer. This step is done via Integromat, which sends an email to the customer's email address.  
 ***
 
 ## Step by Step
