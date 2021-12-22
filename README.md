@@ -2,25 +2,26 @@
 ***
 ![DP_logo](pictures/DigitalPharmacy_logo.png)
 ***
-Authors:   
+**Authors**:   
 Nico Heiniger   
 Gabriel Massaro  
 Rinson Mankudiyil  
-Hsaine El-Ali  
+Hsaine El-Ali
 *** 
-## Table of Content
+## Table of Contents
 1. [Introduction](#introduction)
 2. [Project Description](#project-description)
-	1. [The Web Page](#the-web-page)
-	2. [Camunda](#camunda)
-	3. [Integromat](#integromat)
-	4. [Inventory](#inventory)
-	5. [Billing](#billing)
+	1. [*The Web Page*](#the-web-page)
+	2. [*Camunda*](#camunda)
+	3. [*Integromat*](#integromat)
+	4. [*Inventory*](#inventory)
+	5. [*Order confirmation*](#order-confirmation)
 3. [Step by Step](#step-by-step)
-***
-
+4. [Artefacts](#artefacts)
+ 
+*** 
 ## Introduction
-In 2020 the COVID pandemic took everyone by surprise, forcing countries to close their borders and instore new restrictions and policies. Businesses had to adapt by quickly finding ways to work remotely due to lockdowns. The pandemic has really affected everybody, especially the elderly and people in the risk category.  
+In 2020 the COVID pandemic took everyone by surprise, forcing countries to close their borders and implement new restrictions and policies. Businesses had to adapt by quickly finding ways to work remotely due to lockdowns. The pandemic has really affected everybody, especially the elderly and people in the risk category.  
 
 How would the people with chronic illnesses, who are now at risk each time they venture outside, get their medication?  
 
@@ -31,13 +32,14 @@ The Digital Pharmacy is a project that aims to provide a general solution to sma
 This project aims to showcase how an online shopping solution could be implemented for digital pharmacies.  
 
 ### *The Web Page*
-The first thing is to create an interface for customers to interact with. It is easiest done via a Webpage or an application. In our project, we decided to create a Webpage. The customer will be able to open it via the web browser, select the desired medications and input all the information necessary.  
+In our project, we decided to create a Webpage as the first entry point to the whole process. The customer will be able to open it via the web browser, select the desired medications and input all the information necessary.  
 
-Using HTML, React JS with some styling from Bootstrap CSS, we created a simple Demo version of the Digital Pharmacy.  
+Using responsive webdesign with HTML, React JS and some styling from Bootstrap CSS, we created a simple demo version of the Digital Pharmacy:
+http://digitalpharmacy.herokuapp.com/
 
 ![Website](pictures/Website.jpg)
 
-The primary function of the web page is to select the drugs and collect relevant data, such as email address etc., necessary to complete the whole process. All information about the drugs is contained in a data table implemented with AirTables. The AirTable is linked to the web page and acts as a back-end database.  
+The primary function of the web page is to select the drugs and collect relevant data, such as email address etc., necessary to complete the whole process. All information about the drugs is contained in a data table implemented with AirTables. The AirTable is fetched via its REST API and therefore acts as a back-end database for the webpage.  
 
 ![Airtable](pictures/Airtable.jpg)
 
@@ -76,20 +78,21 @@ When the customer has provided the prescription, Camunda will receive a request 
 
 
 ### *Inventory*
-After receiving the prescription and manual confirmation, the process will be transferred to the inventory. The employee at the station will be requested to manually pack the order displayed to him and confirm its readiness.  
+After receiving the prescription and manual confirmation, the process will be transferred to the inventory. The employee at the station will be requested to manually pack the order displayed to him and confirm its readiness with a checkbox in Camunda.  
 
-When confirmed, the process will once again redirect to Intregromat to updates the stock in AirTable.
+When confirmed, the process will once again redirect to Integromat to updates the stock in AirTable. Integromat fetches the drug from AirTable based on the DrugId which was passed along from the Order. It then decreases its stock amount by 1 and writes back to the database.
 
+![Integromat Pt2](pictures/Integromat_pt3.png)
 
-### *Billing*
-The final step of the process is to send the final order confirmation to the customer. This step is done via Integromat, which sends an email to the customer's email address.  
+### *Order confirmation*
+The final step of the process is to send the final order confirmation to the customer. This step is done via Integromat, which sends an email to the customer's email address. The Integromat flow for the order confirmation looks the same as the one for the prescription request.
 ***
 
 ## Step by Step
 ![BPMN](pictures/BPMN.png)
 
-1. The customer orders medication using the Web Page:  
-	1. Web page is created Using HTML, React JS. 
+1. The customer orders medication using the web page:  
+	1. Web page is created using HTML, React JS. 
 	2. With some styling from Bootstrap CSS.
 	3. The information regarding all the drugs available for order is stored in a data table and implemented using AirTables.
 
@@ -99,17 +102,33 @@ The final step of the process is to send the final order confirmation to the cus
 	1. The order is received by an employee of the pharmacy.
 	2. Depending on the type of drug (prescription or OTC), different routes will be used, this decision is taken referring to a DMN table created with Camunda.
 	3. If the drug needs a prescription, it will request it from the customer in PDF format by sending a request to the provided email address. This step is implemented using Integromat.
+	4. The customer now has 2 days to send back a valid prescription.
 	
 3. The customer replies to the email, attaching his prescription in PDF format:  
-	1. Integromat recognises the incoming email.
-	2. Saves the PDF file in Google Drive.
-	3. Saves essential data in Google Sheets.
+	5. Integromat recognises the incoming email.
+	6. Saves the PDF file in Google Drive.
+	7. Saves essential order data in a log table on AirTables.
 	
 4. When this step is successfully completed it notifies Camunda that the process can proceed by requesting an employee of the pharmacy to confirm it manually. The manual request is a check box created using Camunda forms.
 
-5. The next step will be executed in the Storage or lager section of the pharmacy. An employee will have to manually pack the order and confirm when it is ready. 
+5. The next step will be executed in the storage or logistics section of the pharmacy. An employee will have to manually pack the order and confirm when it is ready. 
 
 6. When the order is ready, a notification will be sent to Integromat to update the inventory by decreasing the stock by one in the AirTables.
 
-7. Finally, the final step is to notify the customer that his order has been sent and provide him with an invoice. The email is automatically sent through Integromat.
+7. Finally, the last step is to notify the customer that his order has been packed and will be ready for shipment. The email is automatically sent through Integromat.
+***
+
+## Artefacts
+- Webpage hosted on Heroku: http://digitalpharmacy.herokuapp.com/
+- Code for Webpage: 'src' folder of this Github repo
+- AirTable invite link: https://airtable.com/invite/l?inviteId=invncwNTi8qY850GO&inviteToken=660636656548e70e8f2937d8660a18e97f9c6b5f406bb164c78aec26de0f1935&utm_source=email
+- BPMN and DMN: 'camunda' folder of this Github repo
+- Integromat: 'integromat' folder of this Github repo (Flows as JSON files).
+- Pitch: 'pitch' folder of this Github repo. Video and Powerpoint slides.
+     - In the video all team members have contributed equally. Here is an overview of the speakers: 
+         - Hsaine: 00:00-02:03
+         - Rinson: 02:03-04:17
+         - Gabriel: 04:17-06:41
+         - Nico: 06:41-08:42
+
 ***
