@@ -135,6 +135,9 @@ The final step of the process is to send the final order confirmation to the cus
 ***
 
 ## Video
-![](pitch/Investors_pitch_video.mp4)
+(click image)
+<a href="https://tube.switch.ch/videos/L3aAyq0LGg" target="_blank" title="Link to the pitch video">
+	![Pitch](./pitch/slides_as_images/Folie1.PNG)
+</a>
 
-Video also hosted on: https://tube.switch.ch/videos/L3aAyq0LGg
+Video hosted on: https://tube.switch.ch/videos/L3aAyq0LGg
