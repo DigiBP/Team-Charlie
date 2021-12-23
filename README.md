@@ -18,10 +18,11 @@ Hsaine El-Ali
 	5. [*Order confirmation*](#order-confirmation)
 3. [Step by Step](#step-by-step)
 4. [Artefacts](#artefacts)
+5. [Video](#video)
  
 *** 
 ## Introduction
-In 2020 the COVID pandemic took everyone by surprise, forcing countries to close their borders and implement new restrictions and policies. Businesses had to adapt by quickly finding ways to work remotely due to lockdowns. The pandemic has really affected everybody, especially the elderly and people in the risk category.  
+In 2020 the COVID pandemic took everyone by surprise, forcing countries to close their borders and implement new restrictions and policies. Businesses had to adapt by quickly finding ways to work remotely due to lockdowns. There was a push for more digitalisation in all possible areas of the economy. The pandemic has really affected everybody, especially the elderly and people in the risk category. 
 
 How would the people with chronic illnesses, who are now at risk each time they venture outside, get their medication?  
 
@@ -123,7 +124,7 @@ The final step of the process is to send the final order confirmation to the cus
 - Code for Webpage: 'src' folder of this Github repo
 - AirTable invite link: https://airtable.com/invite/l?inviteId=invncwNTi8qY850GO&inviteToken=660636656548e70e8f2937d8660a18e97f9c6b5f406bb164c78aec26de0f1935&utm_source=email
 - BPMN and DMN: 'camunda' folder of this Github repo
-- Integromat: 'integromat' folder of this Github repo (Flows as JSON files).
+- Integromat: 'integromat' folder of this Github repo (Flows as JSON files). The integromat are currently not scheduled and runned automatically. They need to be startet manually
 - Pitch: 'pitch' folder of this Github repo. Video and Powerpoint slides.
      - In the video all team members have contributed equally. Here is an overview of the speakers: 
          - Hsaine: 00:00-02:03
@@ -132,3 +133,8 @@ The final step of the process is to send the final order confirmation to the cus
          - Nico: 06:41-08:42
 
 ***
+
+## Video
+![](pitch/Investors_pitch_video.mp4)
+
+Video also hosted on: https://tube.switch.ch/videos/L3aAyq0LGg
